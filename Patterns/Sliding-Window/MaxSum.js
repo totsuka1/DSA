@@ -30,8 +30,9 @@ function maxSubarraySum(arr, n) {
     maxSum += arr[i];
   }
 
+  let tempSum = maxSum;
   for (let j = n; j < arr.length; j++) {
-    let tempSum = maxSum - arr[j - n] + arr[j];
+    tempSum += +arr[j] - arr[j - n];
     if (tempSum > maxSum) {
       maxSum = tempSum;
     }
