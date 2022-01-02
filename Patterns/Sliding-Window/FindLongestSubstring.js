@@ -6,28 +6,21 @@ function findLongestSubstring(string) {
   let leftPointer = 0;
   let rightPointer = 0;
 
-  // if (!string.length) {
-  //   return 0;
-  // }
-
-  while (leftPointer < string.length) {
-    if (!charCounter[string[rightPointer]]) {
-      charCounter[string[rightPointer]] = 1;
+  while (rightPointer < string.length) {
+    if (!(charCounter[string[rightPointer]] >= 0)) {
+      charCounter[string[rightPointer]] = rightPointer;
       rightPointer++;
-    }
-
-    if (
-      charCounter[string[rightPointer]] >= 1 &&
-      rightPointer - leftPointer > longestSubLength
-    ) {
-      longestSubLength = rightPointer - leftPointer;
+    } else if (charCounter[string[rightPointer]] >= 0) {
+      let currentLength = rightPointer - leftPointer;
+      longestSubLength = Math.max(currentLength, longestSubLength);
+      leftPointer = rightPointer = charCounter[string[rightPointer]] + 1;
       charCounter = {};
-    } else {
-      return longestSubLength;
     }
   }
 
-  // return longestSubLength;
+  let currentLength = rightPointer - leftPointer;
+  longestSubLength = Math.max(currentLength, longestSubLength);
+  return longestSubLength;
 }
 
 //Test Cases
